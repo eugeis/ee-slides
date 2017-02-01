@@ -1,0 +1,57 @@
+.font_align_auto {}
+.font_align_baseline {}
+.font_bold {
+    font-weight: bold;
+}
+.font_italic {
+    font-style: italic;
+}
+.font_underlined {}
+.graphic_shape {}
+.picture_shape {}
+.slide_type_blank p {
+    font-size: 200%;
+}
+.slide_type_cust {}
+.slide_type_title {}
+.slide_type_title_and_content {}
+.slide_type_title_only {}
+.slide_type_two_obj div {
+    padding-left: 50px;
+    max-width: 50%;
+    float:left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.slide_type_two_tx_two_obj div {
+    padding-left: 50px;
+    max-width: 50%;
+    float:left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.text_align_center {
+    text-align: center;
+}
+.text_align_justify {
+    text-align: justify;
+}
+.text_align_left {
+    text-align: left;
+}
+.text_align_right {
+    text-align: right;
+}
+.text_shape {}
+.text_type_ {}
+.text_type_body {}
+.text_type_centered_title p {
+  font-size: 300%;
+}
+.text_type_content {}
+.text_type_subtitle  p {
+  font-size: 150%;
+}
+.text_type_title {}
