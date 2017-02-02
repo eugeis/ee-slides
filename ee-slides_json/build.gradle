@@ -1,4 +1,0 @@
-dependencies {
-    compile project(':ee-slides')
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson"
-}

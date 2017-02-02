@@ -1,7 +1,7 @@
 package ee.slides.dsl
 
-import ee.dsl.data.*
-import ee.dsl.*
+import ee.design.*
+import ee.lang.*
 
 object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
     object Shared : Module() {

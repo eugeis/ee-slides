@@ -1,1 +1,1 @@
-include 'ee-slides', 'ee-slides_fx', 'ee-slides_json', 'ee-slides_des'
+include 'ee-slides_des', 'ee-slides', 'ee-slides_json', 'ee-slides_fx'
