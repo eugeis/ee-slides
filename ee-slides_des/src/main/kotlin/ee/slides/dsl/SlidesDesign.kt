@@ -144,8 +144,3 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
         }
     }
 }
-
-fun model(): StructureUnitI {
-    n.initObjectTree()
-    return Slides.initObjectTree(true)
-}
