@@ -54,5 +54,51 @@ fun TextRun.toTextCapText(prefix: String = "", suffix: String = ""): String {
             TextCap.ALL -> this.toUpperCase()
             TextCap.SMALL -> this.toLowerCase()
         }
-    })
+    }).replace("\n", "<br>")
+}
+
+
+fun Paragraph.aggregate() {
+    val newTextRuns = arrayListOf<TextRun>()
+    var currentRun: TextRun? = null
+    textRuns.forEach {
+        if (currentRun == null) {
+            currentRun = it
+            newTextRuns.add(it)
+        } else if (currentRun!!.cap == it.cap && currentRun!!.font == it.font && currentRun!!.color == it.color &&
+                currentRun!!.type == it.type) {
+            currentRun!!.text += it.text
+        } else {
+            currentRun = it
+            newTextRuns.add(it)
+        }
+    }
+    textRuns.clear()
+    textRuns.addAll(newTextRuns)
+}
+
+fun TextShape.aggregate() {
+    paragraphs.filter { it.textRuns.isNotEmpty() }.forEach { it.aggregate() }
+}
+
+fun Shape.aggregate() {
+    if (this is TextShape) {
+        this.aggregate()
+    } else if (this is GroupShape) {
+        shapes.forEach { it.aggregate() }
+    }
+}
+
+fun Slide.aggregate() {
+    shapes.forEach { it.aggregate() }
+}
+
+fun Topic.aggregate() {
+    slides.forEach { it.aggregate() }
+    topics.forEach { it.aggregate() }
+}
+
+fun Presentation.aggregate(): Presentation {
+    topics.forEach { it.aggregate() }
+    return this
 }
