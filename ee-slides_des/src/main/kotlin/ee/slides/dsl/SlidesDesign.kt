@@ -1,7 +1,10 @@
 package ee.slides.dsl
 
 import ee.design.*
-import ee.lang.*
+import ee.lang.EnumType
+import ee.lang.GT
+import ee.lang.n
+import ee.lang.prop
 
 object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
     object Shared : Module() {
