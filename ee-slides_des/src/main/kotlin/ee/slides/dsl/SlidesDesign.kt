@@ -1,10 +1,7 @@
 package ee.slides.dsl
 
 import ee.design.*
-import ee.lang.EnumType
-import ee.lang.GT
-import ee.lang.n
-import ee.lang.prop
+import ee.lang.*
 
 object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
     object Shared : Module() {
@@ -40,28 +37,28 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
         }
 
         object Rectangle : Basic() {
-            val name = prop()
-            val height = prop(n.Int)
-            val width = prop(n.Int)
-            val x = prop(n.Int)
-            val y = prop(n.Int)
+            val name = propS()
+            val height = propI()
+            val width = propI()
+            val x = propI()
+            val y = propI()
         }
 
         object Color : Basic() {
-            val name = prop()
-            val red = prop(n.Int)
-            val green = prop(n.Int)
-            val blue = prop(n.Int)
-            val alpha = prop(n.Int)
+            val name = propS()
+            val red = propI()
+            val green = propI()
+            val blue = propI()
+            val alpha = propI()
         }
 
         object Font : Basic() {
-            val name = prop()
-            val size = prop()
-            val family = prop()
-            val bold = prop(n.Boolean)
-            val italic = prop(n.Boolean)
-            val underlined = prop(n.Boolean)
+            val name = propS()
+            val size = propS()
+            val family = propS()
+            val bold = propB()
+            val italic = propB()
+            val underlined = propB()
         }
 
         object TextCap : EnumType() {
@@ -71,11 +68,11 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
         }
 
         object TextRun : Values() {
-            val text = prop()
+            val text = propS()
             val cap = prop(TextCap)
-            val font = prop()
-            val color = prop()
-            val type = prop()
+            val font = propS()
+            val color = propS()
+            val type = propS()
         }
 
         object Paragraph : Values() {
@@ -90,20 +87,20 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
         }
 
         object Shape : Values({ superUnit(SlidesBase).virtual(true) }) {
-            val name = prop()
+            val name = propS()
             val type = prop(ShapeType)
-            val anchor = prop()
+            val anchor = propS()
         }
 
         object TextShape : Values({ superUnit(Shape) }) {
             val paragraphs = prop(n.List.GT(Paragraph))
-            val textType = prop()
+            val textType = propS()
         }
 
         object PictureShape : Values({ superUnit(Shape) }) {
-            val link = prop(n.Boolean)
-            val linkUri = prop()
-            val fileName = prop()
+            val link = propB()
+            val linkUri = propS()
+            val fileName = propS()
             val data = prop { type(n.Blob).nullable(true) }
         }
 
@@ -127,20 +124,20 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
         }
 
         object Slide : Values({ superUnit(Sheet) }) {
-            val title = prop()
-            val masterType = prop()
+            val title = propS()
+            val masterType = propS()
             val notes = prop(Notes)
             val comments = prop(n.List)
         }
 
         object Topic : Entity() {
-            val name = prop()
+            val name = propS()
             val slides = prop(n.List.GT(Slide))
             val topics = prop(n.List.GT(Topic))
         }
 
         object Presentation : Entity({ superUnit(Topic) }) {
-            val author = prop()
+            val author = propS()
             val colors = prop(n.List.GT(Color))
             val fonts = prop(n.List.GT(Font))
             val anchors = prop(n.List.GT(Rectangle))
