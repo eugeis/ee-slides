@@ -161,8 +161,8 @@ fun GroupShape.toHtml(b: StringBuffer, indent: String) {
 fun PictureShape.toHtml(b: StringBuffer, indent: String) {
     if (reveal) {
         div(b, indent, toCssNames()) { newIndent ->
-            a(b, newIndent, attrs = "href='#'") { newIndent ->
-                img(b, newIndent, attrs = "${reveal.ifElse("data-src", "src")}='$link' alt='$name'")
+            a(b, newIndent, attrs = "href='#'") { newIndent2 ->
+                img(b, newIndent2, attrs = "${reveal.ifElse("data-src", "src")}='$link' alt='$name'")
             }
         }
     }
