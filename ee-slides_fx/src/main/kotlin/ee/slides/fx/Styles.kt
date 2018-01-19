@@ -1,7 +1,10 @@
 package ee.slides.fx
 
 import javafx.scene.text.FontWeight
-import tornadofx.*
+import tornadofx.Stylesheet
+import tornadofx.box
+import tornadofx.cssclass
+import tornadofx.px
 
 class Styles : Stylesheet() {
     companion object {

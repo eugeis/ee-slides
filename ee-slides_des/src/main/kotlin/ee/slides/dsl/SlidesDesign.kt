@@ -120,8 +120,7 @@ object Slides : Comp({ artifact("ee-slides").namespace("ee.slides") }) {
             val shapes = prop(n.List.GT(Shape))
         }
 
-        object Notes : Values({ superUnit(Sheet) }) {
-        }
+        object Notes : Values({ superUnit(Sheet) }) {}
 
         object Slide : Values({ superUnit(Sheet) }) {
             val title = propS()

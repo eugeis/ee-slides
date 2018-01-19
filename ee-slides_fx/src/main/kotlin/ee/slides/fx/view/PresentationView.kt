@@ -1,7 +1,7 @@
 package ee.slides.fx.view
 
 import javafx.scene.layout.BorderPane
-import tornadofx.*
+import tornadofx.View
 
 class PresentationView : View("Slides") {
     override val root = BorderPane()

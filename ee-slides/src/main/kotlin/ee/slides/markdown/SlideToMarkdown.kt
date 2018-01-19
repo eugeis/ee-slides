@@ -12,10 +12,8 @@ fun br(b: Appendable) = b.appendln().appendln()
 fun h2(b: Appendable, classes: String = "", attrs: String = "", text: String) = b.appendln("\n\n## $text")
 fun h1(b: Appendable, classes: String = "", attrs: String = "", text: String) = b.appendln("\n\n# $text")
 
-val textTypeToMarkdownTag = mapOf<String, (String) -> String>(
-        "CENTERED_TITLE" to { it -> it.orEmpty("\n# ") },
-        "SUBTITLE" to { it -> it.orEmpty("> ") }
-)
+val textTypeToMarkdownTag = mapOf<String, (String) -> String>("CENTERED_TITLE" to { it -> it.orEmpty("\n# ") },
+    "SUBTITLE" to { it -> it.orEmpty("> ") })
 
 val excludeTextTypes = setOf("SLIDE_NUMBER")
 
@@ -67,9 +65,13 @@ fun TextShape.toMarkdown(b: Appendable) {
 
             paragraphPartsByType.forEach { parts ->
                 when (parts.first) {
-                    ParagraphType.DEFAULT -> parts.second.forEach { it.toMarkdown(b, textTypeMapper = markdownTextType) }
-                    ParagraphType.NUMBERED -> parts.second.forEachIndexed { i, p -> p.toMarkdown(b, "${i + 1}. ", markdownTextType) }
-                    ParagraphType.BULLET -> parts.second.forEach { it.toMarkdown(b, "* ", markdownTextType) }
+                    ParagraphType.DEFAULT  -> parts.second.forEach {
+                        it.toMarkdown(b, textTypeMapper = markdownTextType)
+                    }
+                    ParagraphType.NUMBERED -> parts.second.forEachIndexed { i, p ->
+                        p.toMarkdown(b, "${i + 1}. ", markdownTextType)
+                    }
+                    ParagraphType.BULLET   -> parts.second.forEach { it.toMarkdown(b, "* ", markdownTextType) }
                 }
             }
         }

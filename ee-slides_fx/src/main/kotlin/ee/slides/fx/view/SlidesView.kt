@@ -27,8 +27,8 @@ fun Topic.toNode(): SlideNode {
 }
 
 class SlidesView() : View("Topics") {
-    val path = Paths.get(if(isWindows) "G:/Ekklesiologie/Seminar" else
-            "/Users/ee/Documents/Bibelschule/Ekklesiologie/Seminar")
+    val path = Paths.get(
+        if (isWindows) "G:/Ekklesiologie/Seminar" else "/Users/ee/Documents/Bibelschule/Ekklesiologie/Seminar")
     val jsonFile = path.resolve("slides.json")
     val mapper = ee.slides.mapper()
     val presentation: Presentation = mapper.readValue(jsonFile.toFile())

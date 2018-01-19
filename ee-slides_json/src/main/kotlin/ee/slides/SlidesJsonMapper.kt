@@ -20,12 +20,12 @@ class ShapeDeserializer : StdDeserializer<Shape>(Shape::class.java) {
             val typeAsString = root.findValue("type").asText()
             if (typeAsString != null) {
                 when (ShapeType.valueOf(typeAsString)) {
-                    TEXT -> ret = mapper?.treeToValue(root, TextShape::class.java) as Shape
-                    GROUP -> ret = mapper?.treeToValue(root, GroupShape::class.java) as Shape
+                    TEXT    -> ret = mapper?.treeToValue(root, TextShape::class.java) as Shape
+                    GROUP   -> ret = mapper?.treeToValue(root, GroupShape::class.java) as Shape
                     PICTURE -> ret = mapper?.treeToValue(root, PictureShape::class.java) as Shape
                     GRAPHIC -> ret = mapper?.treeToValue(root, GraphicShape::class.java) as Shape
-                    TABLE -> ret = mapper?.treeToValue(root, TableShape::class.java) as Shape
-                    else -> ret = TextShape.EMPTY
+                    TABLE   -> ret = mapper?.treeToValue(root, TableShape::class.java) as Shape
+                    else    -> ret = TextShape.EMPTY
                 }
             }
         }

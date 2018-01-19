@@ -31,9 +31,9 @@ fun List<Topic>.extractPicturesTo(target: Path) {
             slide.shapes.filterIsInstance(PictureShape::class.java).forEachIndexed { shapeIndex, shape ->
                 val picturePrefix = "${slideIndex}_${shapeIndex}_"
                 targetPicturesFolder.mkdirs()
-                val picturePath = targetPicturesFolder.resolve(
-                        if (shape.fileName.isNotEmpty()) "$picturePrefix${shape.fileName}"
-                        else "$picturePrefix${shape.name}.jpg")
+                val picturePath =
+                    targetPicturesFolder.resolve(if (shape.fileName.isNotEmpty()) "$picturePrefix${shape.fileName}"
+                    else "$picturePrefix${shape.name}.jpg")
                 picturePath.writeBytes(shape.data!!)
                 shape.data = ByteArray(0)
                 if (shape.fileName.isEmpty()) {
@@ -50,8 +50,8 @@ fun List<Topic>.extractPicturesTo(target: Path) {
 fun TextRun.toTextCapText(prefix: String = "", suffix: String = ""): String {
     return text.orEmpty(prefix, suffix, map = {
         when (cap) {
-            TextCap.NONE -> this
-            TextCap.ALL -> this.toUpperCase()
+            TextCap.NONE  -> this
+            TextCap.ALL   -> this.toUpperCase()
             TextCap.SMALL -> this.toLowerCase()
         }
     }).replace("\n", "<br>")
@@ -65,8 +65,7 @@ fun Paragraph.aggregate() {
         if (currentRun == null) {
             currentRun = it
             newTextRuns.add(it)
-        } else if (currentRun!!.cap == it.cap && currentRun!!.font == it.font && currentRun!!.color == it.color &&
-                currentRun!!.type == it.type) {
+        } else if (currentRun!!.cap == it.cap && currentRun!!.font == it.font && currentRun!!.color == it.color && currentRun!!.type == it.type) {
             currentRun!!.text += it.text
         } else {
             currentRun = it

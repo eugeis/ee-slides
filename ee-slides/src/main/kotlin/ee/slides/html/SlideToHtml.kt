@@ -6,10 +6,7 @@ import ee.common.ext.orEmpty
 import ee.common.ext.toUnderscoredLowerCase
 import ee.slides.*
 
-val textTypeToTag = mapOf(
-        "CENTERED_TITLE" to "h2",
-        "SUBTITLE" to "blockquote"
-)
+val textTypeToTag = mapOf("CENTERED_TITLE" to "h2", "SUBTITLE" to "blockquote")
 val excludeTextTypes = setOf("SLIDE_NUMBER")
 
 val tab = "  "
@@ -17,27 +14,48 @@ private var presentation: Presentation = Presentation.EMPTY
 private var reveal: Boolean = false
 
 
-fun String.toTag(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) {
+fun String.toTag(b: StringBuffer, indent: String, classes: String = "", attrs: String = "",
+    body: (String) -> Unit = {}) {
     b.append(indent).appendln("<$this${attrs.trim().orEmpty(" ")}${classes.trim().orEmpty(" class='", "'")}>")
     body("$indent$tab")
     b.append(indent).appendln("</$this>")
 }
 
 fun String.toTag(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) {
-    b.append(indent).appendln("<$this${attrs.trim().orEmpty(" ")}${classes.trim().orEmpty(" class='", "'")}>$text</$this>")
+    b.append(indent)
+        .appendln("<$this${attrs.trim().orEmpty(" ")}${classes.trim().orEmpty(" class='", "'")}>$text</$this>")
 }
 
-fun section(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "section".toTag(b, indent, classes, attrs, body)
-fun aside(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "aside".toTag(b, indent, "$classes notes", attrs, body)
-fun ul(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "ul".toTag(b, indent, classes, attrs, body)
-fun ol(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "ol".toTag(b, indent, classes, attrs, body)
-fun div(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "div".toTag(b, indent, classes, attrs, body)
-fun a(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) = "a".toTag(b, indent, classes, attrs, body)
-fun img(b: StringBuffer, indent: String, classes: String = "", attrs: String = "") = "img".toTag(b, indent, classes, attrs, "")
-fun p(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) = "p".toTag(b, indent, classes, attrs, text)
+fun section(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "section".toTag(b, indent, classes, attrs, body)
+
+fun aside(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "aside".toTag(b, indent, "$classes notes", attrs, body)
+
+fun ul(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "ul".toTag(b, indent, classes, attrs, body)
+
+fun ol(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "ol".toTag(b, indent, classes, attrs, body)
+
+fun div(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "div".toTag(b, indent, classes, attrs, body)
+
+fun a(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", body: (String) -> Unit = {}) =
+    "a".toTag(b, indent, classes, attrs, body)
+
+fun img(b: StringBuffer, indent: String, classes: String = "", attrs: String = "") =
+    "img".toTag(b, indent, classes, attrs, "")
+
+fun p(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) =
+    "p".toTag(b, indent, classes, attrs, text)
+
 fun br(b: StringBuffer, indent: String) = b.append(indent).appendln("</br>")
-fun h2(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) = "h2".toTag(b, indent, classes, attrs, text)
-fun h1(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) = "h1".toTag(b, indent, classes, attrs, text)
+fun h2(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) =
+    "h2".toTag(b, indent, classes, attrs, text)
+
+fun h1(b: StringBuffer, indent: String, classes: String = "", attrs: String = "", text: String) =
+    "h1".toTag(b, indent, classes, attrs, text)
 
 fun String.comment(b: StringBuffer, indent: String) {
     b.append(indent).append("<!--").append(this).appendln("-->")
@@ -65,7 +83,10 @@ fun Slide.toCssNames(): String {
 
 val fontNameToCss = hashMapOf<String, String>()
 fun Font.toCssNames(): String {
-    return fontNameToCss.getOrPut(name, { "${bold.ifElse(" font_bold", "")}${italic.ifElse(" font_italic", "")}${underlined.ifElse(" font_underlined", "")}" })
+    return fontNameToCss.getOrPut(name, {
+        "${bold.ifElse(" font_bold", "")}${italic.ifElse(" font_italic", "")}${underlined.ifElse(" font_underlined",
+            "")}"
+    })
 }
 
 fun TextRun.toCssNames(): String {
@@ -118,11 +139,11 @@ fun TextShape.toHtml(b: StringBuffer, indent: String) {
             val newIndent2 = "$newIndent$tab"
             paragraphPartsByType.forEach { parts ->
                 when (parts.first) {
-                    ParagraphType.DEFAULT -> parts.second.forEach { it.toHtml(b, newIndent2) }
+                    ParagraphType.DEFAULT  -> parts.second.forEach { it.toHtml(b, newIndent2) }
                     ParagraphType.NUMBERED -> ol(b, newIndent2) {
                         parts.second.forEach { it.toHtml(b, "$newIndent2$tab", "li") }
                     }
-                    ParagraphType.BULLET -> ul(b, newIndent2) {
+                    ParagraphType.BULLET   -> ul(b, newIndent2) {
                         parts.second.forEach { it.toHtml(b, "$newIndent2$tab", "li") }
                     }
                 }
