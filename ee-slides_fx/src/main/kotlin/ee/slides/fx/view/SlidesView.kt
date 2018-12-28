@@ -9,7 +9,7 @@ import javafx.scene.control.TreeItem
 import tornadofx.*
 import java.nio.file.Paths
 
-open class SlideNode(val label: String, val slidesFactory: () -> List<SlideNode> = { emptyList<SlideNode>() })
+open class SlideNode(val label: String, val slidesFactory: () -> List<SlideNode> = { emptyList() })
 
 fun Slide.toNode(prefix: String = ""): SlideNode {
     return SlideNode("$prefix$title")
