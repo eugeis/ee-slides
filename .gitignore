@@ -17,3 +17,7 @@ gradle-app.setting
 /.idea/
 /**/*.iml
 /build.gradle
+/ee-slides/out/production/
+/ee-slides_fx/out/production/classes/
+/ee-slides_json/out/production/classes/
+/ee-slides_des/out/production/classes/
