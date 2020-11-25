@@ -4,7 +4,7 @@ import ee.common.ext.addReturn
 import ee.common.ext.orEmpty
 import ee.slides.*
 
-class SlideToMarkdown(val presentation: Presentation) {
+class SlideToVSCodeReveal(val presentation: Presentation) {
     private val tab = "  "
 
     private fun br(b: Appendable) = b.appendln().appendln()
@@ -89,6 +89,7 @@ class SlideToMarkdown(val presentation: Presentation) {
 
     private var titleOfLastSlide = ""
     fun Slide.toMarkdown(b: Appendable) {
+        b.toSlide()
         if (title.isNotEmpty() && !titleOfLastSlide.equals(title, true)) {
             h2(b, text = title)
             titleOfLastSlide = title
@@ -98,40 +99,36 @@ class SlideToMarkdown(val presentation: Presentation) {
         notes.shapes.forEach { it.toMarkdown(b) }
     }
 
+    private fun Appendable.toSlide() {
+        append("\n\n---\n\n")
+    }
+
     fun Topic.toMarkdown(b: Appendable) {
+        b.toSlide()
         slides.forEach { it.toMarkdown(b) }
         topics.forEach { it.toMarkdown(b) }
     }
 
     fun Presentation.toMarkdown(b: Appendable = AppendableWrapper(StringBuffer())): Appendable {
-        name.comment(b)
+        b.append("""---
+theme : "white"
+customTheme: "revealjs-custom-theme_white"
+transition: "slide"
+highlightTheme: "monokai"
+logoImg: ""
+slideNumber: false
+title: $name
+---
+
+# $name
+
+--- 
+""")
         topics.forEach { it.toMarkdown(b) }
         return b
     }
 
     fun generate(b: Appendable = AppendableWrapper(StringBuffer())): Appendable {
         return presentation.toMarkdown(b)
-    }
-}
-
-class AppendableWrapper(private val delegate: Appendable) : Appendable {
-
-    override fun append(csq: CharSequence?): Appendable {
-        delegate.append(csq)
-        return this
-    }
-
-    override fun append(csq: CharSequence?, start: Int, end: Int): Appendable {
-        delegate.append(csq, start, end)
-        return this
-    }
-
-    override fun append(c: Char): Appendable {
-        delegate.append(c)
-        return this
-    }
-
-    override fun toString(): String {
-        return delegate.toString()
     }
 }
