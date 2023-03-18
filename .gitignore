@@ -21,3 +21,17 @@ gradle-app.setting
 /ee-slides_fx/out/production/classes/
 /ee-slides_json/out/production/classes/
 /ee-slides_des/out/production/classes/
+/ee-slides_json/.settings/
+/ee-slides_json/.classpath
+/ee-slides_json/.project
+/ee-slides_fx/.settings/
+/ee-slides_fx/.classpath
+/ee-slides_fx/.project
+/ee-slides_des/.settings/
+/ee-slides_des/.classpath
+/ee-slides_des/.project
+/ee-slides/.settings/
+/ee-slides/.classpath
+/ee-slides/.project
+/.settings/
+/.classpath
